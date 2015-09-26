@@ -14,9 +14,12 @@ namespace CrudWCF
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in code, svc and config file together.
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
 
+    [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Multiple)]
     public class Service1 : IService1
     {
 
+        //Object to control the Multiple Concurrence
+        readonly object ThisLock = new object();
 
         #region ShowAll
 
@@ -90,10 +93,14 @@ namespace CrudWCF
         {
             try
             {
-                using (CrudBL.CrudBL bl = new CrudBL.CrudBL())
+                //Lock the object to manage the interlocking of the request
+                lock (this.ThisLock)
                 {
-                    IUDResults result = bl.Insert(Number, concept, description, total, dateI, dateF);
-                    return result;
+                    using (CrudBL.CrudBL bl = new CrudBL.CrudBL())
+                    {
+                        IUDResults result = bl.Insert(Number, concept, description, total, dateI, dateF);
+                        return result;
+                    }
                 }
             }
             catch (Exception ex)

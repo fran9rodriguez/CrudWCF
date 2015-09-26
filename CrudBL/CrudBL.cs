@@ -8,7 +8,7 @@ using System.Configuration;
 
 namespace CrudBL
 {
-    public class CrudBL: IDisposable
+    public class CrudBL: ICRUDBL
     {
 
         //source of data

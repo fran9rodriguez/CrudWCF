@@ -10,8 +10,8 @@ namespace CrudBL
     {
         SearchResults Search(string invoiceNum);
         SearchResults ShowAll();
-        int Insert(string Number, string concept, string description, string total, string dateI, string dateF);
-        int InsertPost(string request);
-        bool Delete(string idInvoice); 
+        IUDResults Insert(string Number, string concept, string description, string total, string dateI, string dateF);
+        IUDResults InsertPost(string request);
+        IUDResults Delete(string idInvoice); 
     }
 }
