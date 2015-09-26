@@ -5,3 +5,4 @@ C:\Fran\Projects\CrudWCF\CrudDA\obj\Debug\CrudDA.dll
 C:\Fran\Projects\CrudWCF\CrudDA\obj\Debug\CrudDA.pdb
 C:\Fran\Projects\CrudWCF\CrudDA\bin\Debug\Newtonsoft.Json.dll
 C:\Fran\Projects\CrudWCF\CrudDA\bin\Debug\Newtonsoft.Json.xml
+C:\Fran\Projects\CrudWCF\CrudDA\obj\Debug\CrudDA.csprojResolveAssemblyReference.cache

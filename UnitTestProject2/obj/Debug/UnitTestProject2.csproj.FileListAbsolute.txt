@@ -1,0 +1,11 @@
+C:\Fran\Projects\CrudWCF\UnitTestProject2\bin\Debug\UnitTestProject2.dll
+C:\Fran\Projects\CrudWCF\UnitTestProject2\bin\Debug\UnitTestProject2.pdb
+C:\Fran\Projects\CrudWCF\UnitTestProject2\bin\Debug\CrudBL.dll
+C:\Fran\Projects\CrudWCF\UnitTestProject2\bin\Debug\CrudDA.dll
+C:\Fran\Projects\CrudWCF\UnitTestProject2\bin\Debug\Newtonsoft.Json.dll
+C:\Fran\Projects\CrudWCF\UnitTestProject2\bin\Debug\CrudBL.pdb
+C:\Fran\Projects\CrudWCF\UnitTestProject2\bin\Debug\CrudDA.pdb
+C:\Fran\Projects\CrudWCF\UnitTestProject2\bin\Debug\Newtonsoft.Json.xml
+C:\Fran\Projects\CrudWCF\UnitTestProject2\obj\Debug\UnitTestProject2.csprojResolveAssemblyReference.cache
+C:\Fran\Projects\CrudWCF\UnitTestProject2\obj\Debug\UnitTestProject2.dll
+C:\Fran\Projects\CrudWCF\UnitTestProject2\obj\Debug\UnitTestProject2.pdb
