@@ -6,6 +6,8 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
 using Newtonsoft.Json.Linq;
+using CrudDA;
+using System.Configuration;
 
 namespace CrudWCF
 {
@@ -14,6 +16,8 @@ namespace CrudWCF
 
     public class Service1 : IService1
     {
+        //source of data
+        static int idSource = Int32.Parse(ConfigurationManager.AppSettings["dataSource"].ToString());
 
         #region ShowAll
 
@@ -21,20 +25,9 @@ namespace CrudWCF
                     ResponseFormat = WebMessageFormat.Json,
                     UriTemplate = "ShowAll")]
         public List<Invoice> ShowAll()
-        {
-            List<Invoice> lInvoices = new List<Invoice>();
-            using (DataClasses1DataContext dc = new DataClasses1DataContext())
-            {
-                var dataOptions = new System.Data.Linq.DataLoadOptions();
-                dataOptions.LoadWith<Invoice>(ca => ca.InvoiceLines);
-                dc.LoadOptions = dataOptions;
-
-                var rows = from myRow in dc.Invoices
-                           select myRow;
-
-                lInvoices = rows.ToList();
-            }
-
+        {          
+            var crudClass = Factory.Get(idSource);
+            List<Invoice> lInvoices = crudClass.ShowAll();
             return lInvoices;
         }
 
@@ -52,19 +45,8 @@ namespace CrudWCF
                     UriTemplate = "Search/{invoiceNum}")]
         public List<Invoice> Search(string invoiceNum)
         {
-            List<Invoice> lInvoices = new List<Invoice>();
-            using (DataClasses1DataContext dc = new DataClasses1DataContext())
-            {
-                var dataOptions = new System.Data.Linq.DataLoadOptions();
-                dataOptions.LoadWith<Invoice>(ca => ca.InvoiceLines);
-                dc.LoadOptions = dataOptions;
-
-                var rows = from myRow in dc.Invoices
-                           where myRow.Number == Int32.Parse(invoiceNum)
-                           select myRow;
-
-                lInvoices = rows.ToList();
-            }
+            var crudClass = Factory.Get(idSource);
+            List<Invoice> lInvoices = crudClass.Search(invoiceNum);
 
             return lInvoices;
         }
@@ -72,6 +54,7 @@ namespace CrudWCF
         #endregion
 
         #region Insert
+
         /// <summary>
         /// 
         /// </summary>
@@ -89,21 +72,9 @@ namespace CrudWCF
                    UriTemplate = "Insert/{Number}/{concept}/{description}/{total}/{dateI}/{dateF}")]
         public int Insert(string Number, string concept, string description, string total, string dateI, string dateF)
         {
-
-            using (DataClasses1DataContext dc = new DataClasses1DataContext())
-            {
-                Invoice i = new Invoice();
-                i.Number = Int32.Parse(Number);
-                i.Concept = concept;
-                i.Description = description;
-                i.total = Int32.Parse(total);
-                i.dateI = DateTime.Parse(dateI);
-                i.dateF = DateTime.Parse(dateF);
-                dc.Invoices.InsertOnSubmit(i);
-                dc.SubmitChanges();
-                return i.idInvoice;
-            }
-
+            var crudClass = Factory.Get(idSource);
+            int idInvoice = crudClass.Insert(Number, concept, description, total, dateI, dateF);
+            return idInvoice;
         }
 
         #endregion
@@ -129,52 +100,10 @@ namespace CrudWCF
                    UriTemplate = "InsertPost")]
         public int InsertPost(string request)
         {
-            //string auxRequest = "{\"idInvoice\":12,\"Number\":1,\"Concept\":\"235.61.278\",\"Description\":\"Payment Kantoor Utrecht\",\"total\":1345,\"dateI\":\"\\/Date(1443280786427+0200)\\/\",\"dateF\":\"\\/Date(1447421394063+0100)\\/\",\"InvoiceLines\":[{\"idLine\":4,\"rIdInvoice\":12,\"sDesc\":\"Line 1\",\"total\":1345}]}";
-            //JToken jsonRequest = JToken.Parse(auxRequest);
+            var crudClass = Factory.Get(idSource);
+            int idInvoice = crudClass.InsertPost(request);
 
-            JToken jsonRequest = JToken.Parse(request);
-
-            using (DataClasses1DataContext dc = new DataClasses1DataContext())
-            {
-                int idInvoice = -1;
-
-                Invoice i = new Invoice();
-                i.Number = Int32.Parse(jsonRequest["Number"].ToString());
-                i.Concept = jsonRequest["Concept"].ToString();
-                i.Description = jsonRequest["Description"].ToString();
-                i.total = Int32.Parse(jsonRequest["total"].ToString());
-                i.dateI = DateTime.Parse(jsonRequest["dateI"].ToString());
-                i.dateF = DateTime.Parse(jsonRequest["dateF"].ToString());
-                dc.Invoices.InsertOnSubmit(i);
-                dc.SubmitChanges();
-                idInvoice = i.idInvoice;
-
-                JArray lines = JArray.Parse(jsonRequest["InvoiceLines"].ToString());
-                foreach (var line in lines)
-                {
-                    InvoiceLine iLine = new InvoiceLine();
-                    iLine.rIdInvoice = idInvoice;
-                    iLine.sDesc = line["sDesc"].ToString();
-                    iLine.total = Int32.Parse(line["total"].ToString());
-                    dc.InvoiceLines.InsertOnSubmit(iLine);
-                }
-
-                try
-                {
-                    dc.SubmitChanges();
-                    return idInvoice;
-                }
-                catch (Exception ex)
-                {
-                    bool bDelete = Delete(idInvoice.ToString());
-                    return -1;
-                }
-            }
-
-
-
-
-
+            return idInvoice;
         }
 
         #endregion
@@ -186,37 +115,10 @@ namespace CrudWCF
                    UriTemplate = "Delete/{idInvoice}")]
         public bool Delete(string idInvoice)
         {
-            using (DataClasses1DataContext dc = new DataClasses1DataContext())
-            {
-                var dataOptions = new System.Data.Linq.DataLoadOptions();
-                dataOptions.LoadWith<Invoice>(ca => ca.InvoiceLines);
-                dc.LoadOptions = dataOptions;
+            var crudClass = Factory.Get(idSource);
+            bool bDelete = crudClass.Delete(idInvoice);
 
-                var deleteOrderDetails =
-                    from details in dc.Invoices
-                    where details.idInvoice == Int32.Parse(idInvoice)
-                    select details;
-
-                foreach (var invoice in deleteOrderDetails)
-                {
-                    dc.Invoices.DeleteOnSubmit(invoice);
-
-                    foreach (var invoiceL in invoice.InvoiceLines)
-                    {
-                        dc.InvoiceLines.DeleteOnSubmit(invoiceL);
-                    }
-                }
-
-                try
-                {
-                    dc.SubmitChanges();
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    return false;
-                }
-            }
+            return bDelete;
 
         }
 

@@ -2,6 +2,8 @@ C:\Fran\Projects\CrudWCF\CrudWCF\bin\CrudWCF.dll
 C:\Fran\Projects\CrudWCF\CrudWCF\bin\CrudWCF.pdb
 C:\Fran\Projects\CrudWCF\CrudWCF\obj\Debug\CrudWCF.dll
 C:\Fran\Projects\CrudWCF\CrudWCF\obj\Debug\CrudWCF.pdb
-C:\Fran\Projects\CrudWCF\CrudWCF\obj\Debug\CrudWCF.csprojResolveAssemblyReference.cache
 C:\Fran\Projects\CrudWCF\CrudWCF\bin\Newtonsoft.Json.dll
 C:\Fran\Projects\CrudWCF\CrudWCF\bin\Newtonsoft.Json.xml
+C:\Fran\Projects\CrudWCF\CrudWCF\obj\Debug\CrudWCF.csprojResolveAssemblyReference.cache
+C:\Fran\Projects\CrudWCF\CrudWCF\bin\CrudDA.dll
+C:\Fran\Projects\CrudWCF\CrudWCF\bin\CrudDA.pdb

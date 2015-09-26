@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrudWCF", "CrudWCF\CrudWCF.csproj", "{38094C13-946E-4CC0-9ADD-A058E9BFFED9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrudDA", "CrudDA\CrudDA.csproj", "{1A1CF3FB-015F-457F-9361-FC59EB61EAEC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{38094C13-946E-4CC0-9ADD-A058E9BFFED9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38094C13-946E-4CC0-9ADD-A058E9BFFED9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38094C13-946E-4CC0-9ADD-A058E9BFFED9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A1CF3FB-015F-457F-9361-FC59EB61EAEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A1CF3FB-015F-457F-9361-FC59EB61EAEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A1CF3FB-015F-457F-9361-FC59EB61EAEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A1CF3FB-015F-457F-9361-FC59EB61EAEC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

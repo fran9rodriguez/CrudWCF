@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using CrudDA;
 
 namespace CrudWCF
 {
@@ -18,7 +19,7 @@ namespace CrudWCF
         [OperationContract]       
         List<Invoice> Search(string invoiceNum);
 
-        [OperationContract]        
+        [OperationContract]
         List<Invoice> ShowAll();
 
         [OperationContract]       

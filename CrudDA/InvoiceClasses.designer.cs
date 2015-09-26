@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CrudWCF
+namespace CrudDA
 {
 	using System.Data.Linq;
 	using System.Data.Linq.Mapping;
@@ -24,7 +24,7 @@ namespace CrudWCF
 	
 	
 	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="CrudDB")]
-	public partial class DataClasses1DataContext : System.Data.Linq.DataContext
+	public partial class InvoiceClassesDataContext : System.Data.Linq.DataContext
 	{
 		
 		private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
@@ -39,31 +39,31 @@ namespace CrudWCF
     partial void DeleteInvoiceLine(InvoiceLine instance);
     #endregion
 		
-		public DataClasses1DataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["CrudDBConnectionString"].ConnectionString, mappingSource)
+		public InvoiceClassesDataContext() : 
+				base(global::CrudDA.Properties.Settings.Default.CrudDBConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public DataClasses1DataContext(string connection) : 
+		public InvoiceClassesDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public DataClasses1DataContext(System.Data.IDbConnection connection) : 
+		public InvoiceClassesDataContext(System.Data.IDbConnection connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public DataClasses1DataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public InvoiceClassesDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public DataClasses1DataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public InvoiceClassesDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
