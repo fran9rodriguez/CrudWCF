@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using Newtonsoft.Json.Linq;
 
 namespace CrudWCF
 {
@@ -107,6 +108,77 @@ namespace CrudWCF
 
         #endregion
 
+        #region InsertPost
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Number"></param>
+        /// <param name="concept"></param>
+        /// <param name="description"></param>
+        /// <param name="total"></param>
+        /// <param name="dateI"></param>
+        /// <param name="dateF"></param>
+        /// <remarks>
+        ///   http://localhost:50199/Service1.svc/InsertPost
+        ///   {"idInvoice":12,"Number":1,"Concept":"235.61.278","Description":"Payment Kantoor Utrecht","total":1345,"dateI":"\/Date(1443280786427+0200)\/","dateF":"\/Date(1447421394063+0100)\/","InvoiceLines":[{"idLine":4,"rIdInvoice":12,"sDesc":"Line 1","total":1345}]}
+        /// </remarks>
+        [WebInvoke(Method = "POST",
+                   ResponseFormat = WebMessageFormat.Json,
+                   RequestFormat = WebMessageFormat.Json,
+                   UriTemplate = "InsertPost")]
+        public int InsertPost(string request)
+        {
+            //string auxRequest = "{\"idInvoice\":12,\"Number\":1,\"Concept\":\"235.61.278\",\"Description\":\"Payment Kantoor Utrecht\",\"total\":1345,\"dateI\":\"\\/Date(1443280786427+0200)\\/\",\"dateF\":\"\\/Date(1447421394063+0100)\\/\",\"InvoiceLines\":[{\"idLine\":4,\"rIdInvoice\":12,\"sDesc\":\"Line 1\",\"total\":1345}]}";
+            //JToken jsonRequest = JToken.Parse(auxRequest);
+
+            JToken jsonRequest = JToken.Parse(request);
+
+            using (DataClasses1DataContext dc = new DataClasses1DataContext())
+            {
+                int idInvoice = -1;
+
+                Invoice i = new Invoice();
+                i.Number = Int32.Parse(jsonRequest["Number"].ToString());
+                i.Concept = jsonRequest["Concept"].ToString();
+                i.Description = jsonRequest["Description"].ToString();
+                i.total = Int32.Parse(jsonRequest["total"].ToString());
+                i.dateI = DateTime.Parse(jsonRequest["dateI"].ToString());
+                i.dateF = DateTime.Parse(jsonRequest["dateF"].ToString());
+                dc.Invoices.InsertOnSubmit(i);
+                dc.SubmitChanges();
+                idInvoice = i.idInvoice;
+
+                JArray lines = JArray.Parse(jsonRequest["InvoiceLines"].ToString());
+                foreach (var line in lines)
+                {
+                    InvoiceLine iLine = new InvoiceLine();
+                    iLine.rIdInvoice = idInvoice;
+                    iLine.sDesc = line["sDesc"].ToString();
+                    iLine.total = Int32.Parse(line["total"].ToString());
+                    dc.InvoiceLines.InsertOnSubmit(iLine);
+                }
+
+                try
+                {
+                    dc.SubmitChanges();
+                    return idInvoice;
+                }
+                catch (Exception ex)
+                {
+                    bool bDelete = Delete(idInvoice.ToString());
+                    return -1;
+                }
+            }
+
+
+
+
+
+        }
+
+        #endregion
+
         #region Delete
 
         [WebInvoke(Method = "GET",
@@ -140,8 +212,8 @@ namespace CrudWCF
                     dc.SubmitChanges();
                     return true;
                 }
-                catch(Exception ex)
-                { 
+                catch (Exception ex)
+                {
                     return false;
                 }
             }

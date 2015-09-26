@@ -13,9 +13,7 @@ namespace CrudWCF
     public interface IService1
     {      
 
-        // TODO: Add your service operations here
-
-        
+        // TODO: Add your service operations here       
         
         [OperationContract]       
         List<Invoice> Search(string invoiceNum);
@@ -27,7 +25,10 @@ namespace CrudWCF
         int Insert(string Number, string concept, string description, string total, string dateI, string dateF);
 
         [OperationContract]
-        bool Delete(string idInvoice);  
+        int InsertPost(string request);
+
+        [OperationContract]
+        bool Delete(string idInvoice); 
        
     }
 
