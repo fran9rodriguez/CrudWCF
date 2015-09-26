@@ -1,0 +1,4 @@
+C:\Fran\Projects\CrudWCF\CrudWCF\bin\CrudWCF.dll
+C:\Fran\Projects\CrudWCF\CrudWCF\bin\CrudWCF.pdb
+C:\Fran\Projects\CrudWCF\CrudWCF\obj\Debug\CrudWCF.dll
+C:\Fran\Projects\CrudWCF\CrudWCF\obj\Debug\CrudWCF.pdb
