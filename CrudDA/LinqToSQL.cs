@@ -171,22 +171,30 @@ namespace CrudDA
                     where details.idInvoice == Int32.Parse(idInvoice)
                     select details;
 
-                foreach (var invoice in deleteOrderDetails)
+                if (deleteOrderDetails.Count() > 0)
                 {
-                    dc.Invoices.DeleteOnSubmit(invoice);
 
-                    foreach (var invoiceL in invoice.InvoiceLines)
+                    foreach (var invoice in deleteOrderDetails)
                     {
-                        dc.InvoiceLines.DeleteOnSubmit(invoiceL);
+                        dc.Invoices.DeleteOnSubmit(invoice);
+
+                        foreach (var invoiceL in invoice.InvoiceLines)
+                        {
+                            dc.InvoiceLines.DeleteOnSubmit(invoiceL);
+                        }
+                    }
+
+                    try
+                    {
+                        dc.SubmitChanges();
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        return false;
                     }
                 }
-
-                try
-                {
-                    dc.SubmitChanges();
-                    return true;
-                }
-                catch (Exception ex)
+                else
                 {
                     return false;
                 }

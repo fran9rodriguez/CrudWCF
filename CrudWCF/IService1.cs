@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
-using CrudDA;
+using CrudBL;
 
 namespace CrudWCF
 {
@@ -17,19 +17,19 @@ namespace CrudWCF
         // TODO: Add your service operations here       
         
         [OperationContract]       
-        List<Invoice> Search(string invoiceNum);
+        SearchResults Search(string invoiceNum);
 
         [OperationContract]
-        List<Invoice> ShowAll();
+        SearchResults ShowAll();
 
         [OperationContract]       
-        int Insert(string Number, string concept, string description, string total, string dateI, string dateF);
+        IUDResults Insert(string Number, string concept, string description, string total, string dateI, string dateF);
 
         [OperationContract]
-        int InsertPost(string request);
+        IUDResults InsertPost(string request);
 
         [OperationContract]
-        bool Delete(string idInvoice); 
+        IUDResults Delete(string idInvoice); 
        
     }
 

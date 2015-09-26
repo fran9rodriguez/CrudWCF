@@ -6,7 +6,7 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
 using Newtonsoft.Json.Linq;
-using CrudDA;
+using CrudBL;
 using System.Configuration;
 
 namespace CrudWCF
@@ -16,19 +16,27 @@ namespace CrudWCF
 
     public class Service1 : IService1
     {
-        //source of data
-        static int idSource = Int32.Parse(ConfigurationManager.AppSettings["dataSource"].ToString());
+
 
         #region ShowAll
 
         [WebInvoke(Method = "GET",
                     ResponseFormat = WebMessageFormat.Json,
                     UriTemplate = "ShowAll")]
-        public List<Invoice> ShowAll()
-        {          
-            var crudClass = Factory.Get(idSource);
-            List<Invoice> lInvoices = crudClass.ShowAll();
-            return lInvoices;
+        public SearchResults ShowAll()
+        {
+            try
+            {
+                using (CrudBL.CrudBL bl = new CrudBL.CrudBL())
+                {
+                    SearchResults result = bl.ShowAll();
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                return new SearchResults(-1, ex.Message.ToString());
+            }
         }
 
         #endregion
@@ -43,12 +51,20 @@ namespace CrudWCF
         [WebInvoke(Method = "GET",
                     ResponseFormat = WebMessageFormat.Json,
                     UriTemplate = "Search/{invoiceNum}")]
-        public List<Invoice> Search(string invoiceNum)
+        public SearchResults Search(string invoiceNum)
         {
-            var crudClass = Factory.Get(idSource);
-            List<Invoice> lInvoices = crudClass.Search(invoiceNum);
-
-            return lInvoices;
+            try
+            {
+                using (CrudBL.CrudBL bl = new CrudBL.CrudBL())
+                {
+                    SearchResults result = bl.Search(invoiceNum);
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                return new SearchResults(-1, ex.Message.ToString());
+            }
         }
 
         #endregion
@@ -70,11 +86,20 @@ namespace CrudWCF
         [WebInvoke(Method = "GET",
                    ResponseFormat = WebMessageFormat.Json,
                    UriTemplate = "Insert/{Number}/{concept}/{description}/{total}/{dateI}/{dateF}")]
-        public int Insert(string Number, string concept, string description, string total, string dateI, string dateF)
+        public IUDResults Insert(string Number, string concept, string description, string total, string dateI, string dateF)
         {
-            var crudClass = Factory.Get(idSource);
-            int idInvoice = crudClass.Insert(Number, concept, description, total, dateI, dateF);
-            return idInvoice;
+            try
+            {
+                using (CrudBL.CrudBL bl = new CrudBL.CrudBL())
+                {
+                    IUDResults result = bl.Insert(Number, concept, description, total, dateI, dateF);
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                return new IUDResults(-1, ex.Message.ToString());
+            }
         }
 
         #endregion
@@ -98,12 +123,20 @@ namespace CrudWCF
                    ResponseFormat = WebMessageFormat.Json,
                    RequestFormat = WebMessageFormat.Json,
                    UriTemplate = "InsertPost")]
-        public int InsertPost(string request)
+        public IUDResults InsertPost(string request)
         {
-            var crudClass = Factory.Get(idSource);
-            int idInvoice = crudClass.InsertPost(request);
-
-            return idInvoice;
+            try
+            {
+                using (CrudBL.CrudBL bl = new CrudBL.CrudBL())
+                {
+                    IUDResults result = bl.InsertPost(request);
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                return new IUDResults(-1, ex.Message.ToString());
+            }
         }
 
         #endregion
@@ -113,12 +146,20 @@ namespace CrudWCF
         [WebInvoke(Method = "GET",
                    ResponseFormat = WebMessageFormat.Json,
                    UriTemplate = "Delete/{idInvoice}")]
-        public bool Delete(string idInvoice)
+        public IUDResults Delete(string idInvoice)
         {
-            var crudClass = Factory.Get(idSource);
-            bool bDelete = crudClass.Delete(idInvoice);
-
-            return bDelete;
+            try
+            {
+                using (CrudBL.CrudBL bl = new CrudBL.CrudBL())
+                {
+                    IUDResults result = bl.Delete(idInvoice);
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                return new IUDResults(-1, ex.Message.ToString());
+            }
 
         }
 

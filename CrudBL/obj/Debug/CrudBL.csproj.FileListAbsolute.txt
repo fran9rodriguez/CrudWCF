@@ -1,0 +1,9 @@
+C:\Fran\Projects\CrudWCF\CrudBL\bin\Debug\CrudBL.dll
+C:\Fran\Projects\CrudWCF\CrudBL\bin\Debug\CrudBL.pdb
+C:\Fran\Projects\CrudWCF\CrudBL\bin\Debug\CrudDA.dll
+C:\Fran\Projects\CrudWCF\CrudBL\bin\Debug\Newtonsoft.Json.dll
+C:\Fran\Projects\CrudWCF\CrudBL\bin\Debug\CrudDA.pdb
+C:\Fran\Projects\CrudWCF\CrudBL\bin\Debug\Newtonsoft.Json.xml
+C:\Fran\Projects\CrudWCF\CrudBL\obj\Debug\CrudBL.csprojResolveAssemblyReference.cache
+C:\Fran\Projects\CrudWCF\CrudBL\obj\Debug\CrudBL.dll
+C:\Fran\Projects\CrudWCF\CrudBL\obj\Debug\CrudBL.pdb

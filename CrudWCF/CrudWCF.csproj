@@ -91,9 +91,9 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CrudDA\CrudDA.csproj">
-      <Project>{1a1cf3fb-015f-457f-9361-fc59eb61eaec}</Project>
-      <Name>CrudDA</Name>
+    <ProjectReference Include="..\CrudBL\CrudBL.csproj">
+      <Project>{41f00ed2-5865-41b9-9390-ce158e87d3d5}</Project>
+      <Name>CrudBL</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
